@@ -1,6 +1,9 @@
 import express from 'express'
 import mongoose from 'mongoose';
 
+import { registerVadiladion } from './validations/auth.js'
+import { validationResult } from 'express-validator';
+
 const app = express()
 app.use(express.json())
 
@@ -16,6 +19,13 @@ app.listen(3333, (err) => {
    console.log('SERVER OK');
 })
 
-app.get('/', (req, res) => {
-   res.send('helloworld')
+app.post('/auth/register', registerVadiladion, (req, res) => {
+   const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array())
+   } else {
+      res.json({
+         succes: true
+      })
+   }
 })
