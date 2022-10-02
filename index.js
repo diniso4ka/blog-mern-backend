@@ -4,13 +4,15 @@ import mongoose from 'mongoose';
 import { registerVadiladion } from './validations/auth.js'
 import { validationResult } from 'express-validator';
 
+mongoose
+   .connect('mongodb+srv://diniso4ka:testtest@cluster0.nqklddr.mongodb.net/blog-mern?retryWrites=true&w=majority')
+   .then(() => console.log('DB ok'))
+   .catch((err) => console.log('DB error'))
+
+
 const app = express()
 app.use(express.json())
 
-mongoose
-   .connect('mongodb+srv://diniso4ka:testtest@cluster0.nqklddr.mongodb.net/?retryWrites=true&w=majority')
-   .then(() => console.log('DB ok'))
-   .catch((err) => console.log(err))
 
 app.listen(3333, (err) => {
    if (err) {
