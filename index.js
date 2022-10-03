@@ -7,6 +7,7 @@ import { registerVadiladion } from './validations/auth.js'
 import { validationResult } from 'express-validator';
 
 import UserModel from './models/User.js'
+import checkAuth from './utils/checkAuth.js'
 
 mongoose
    .connect('mongodb+srv://diniso4ka:qwerty123@cluster0.nqklddr.mongodb.net/blog-mern?retryWrites=true&w=majority')
@@ -57,7 +58,10 @@ app.post('/auth/register', registerVadiladion, async (req, res) => {
 
       res.json({ ...userData, token })
    } catch (err) {
-      res.status(500).json(err)
+      console.log(err)
+      res.status(500).json({
+         message: 'Не удалось зарегестрироваться'
+      })
    }
 })
 
@@ -88,7 +92,21 @@ app.post('/auth/login', async (req, res) => {
 
       res.json({ ...userData, token })
    } catch (err) {
-      res.status(500).json(err)
+      console.log(err)
+      res.status(500).json({
+         message: 'Не удалось авторизоваться'
+      })
+   }
+})
+
+
+app.get('/auth/me', checkAuth, (req, res) => {
+   try {
+      res.json({
+         succes: 'true'
+      })
+   } catch (err) {
+
    }
 })
 
