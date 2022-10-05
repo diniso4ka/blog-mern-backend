@@ -54,10 +54,10 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
       url: `/uploads/${req.file.originalname}`,
    });
 });
-
+app.get('/tags', PostController.getLastTags)
 app.get('/posts/tags', PostController.getLastTags)
 app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.create)
 app.delete('/posts/:id', checkAuth, PostController.remove)
-app.patch('/posts/:id', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.update)
+app.patch('/posts/:id', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.update) 
