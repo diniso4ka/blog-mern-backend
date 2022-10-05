@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose';
 import multer from 'multer'
 
+import cors from 'cors'
+
 import { registerVadiladion, loginVadiladion, postCreateVadiladion } from './validations/validations.js'
 import { checkAuth, handleValidationsErrors } from './utils/index.js'
 import { PostController, UserController } from './controllers/index.js'
@@ -40,6 +42,7 @@ app.listen(3333, (err) => {
 
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
+app.use(cors())
 
 
 app.post('/auth/register', registerVadiladion, handleValidationsErrors, UserController.register)
@@ -52,6 +55,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
    });
 });
 
+app.get('/posts/tags', PostController.getLastTags)
 app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.create)
