@@ -22,7 +22,7 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
    try {
-      const posts = await PostModel.find().populate('user').exec()
+      const posts = await PostModel.find().sort([[`${req.headers.sort}`, -1]]).populate('user').exec()
       if (!posts) {
          res.status(200).json({
             message: 'Список статей пуст.'

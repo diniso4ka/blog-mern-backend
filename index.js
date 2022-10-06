@@ -6,7 +6,7 @@ import cors from 'cors'
 
 import { registerVadiladion, loginVadiladion, postCreateVadiladion } from './validations/validations.js'
 import { checkAuth, handleValidationsErrors } from './utils/index.js'
-import { PostController, UserController } from './controllers/index.js'
+import { CommentController, PostController, UserController } from './controllers/index.js'
 
 
 
@@ -57,4 +57,7 @@ app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.create)
 app.delete('/posts/:id', checkAuth, PostController.remove)
-app.patch('/posts/:id', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.update) 
+app.patch('/posts/:id', checkAuth, postCreateVadiladion, handleValidationsErrors, PostController.update)
+
+app.post('/posts/:id/comments', checkAuth, CommentController.addComment)
+app.get('/posts/:id/comments', CommentController.getComments)

@@ -16,5 +16,5 @@ export const postCreateVadiladion = [
    body('title', 'Заголовок должен содержать минимум 3 символа.').isLength({ min: 3 }).isString(),
    body('text', 'Текст статьи должен содержать минимум 10 символов.').isLength({ min: 10 }),
    body('tags', 'Неверный формат тэгов.').optional().isArray(),
-   body('imgUrl', 'Неверный формат ссылки.').optional().isURL()
+   body('imgUrl', 'Неверный формат ссылки.').optional()
 ] 
